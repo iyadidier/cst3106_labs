@@ -1,0 +1,117 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Heading Styles */
+h1 {
+    text-align: center;
+    color: #2980b9;
+    margin-bottom: 10px;
+}
+
+h2, h3 {
+    color: #34495e;
+}
+
+/* Contact Info */
+.contact-info {
+    text-align: center;
+    margin-bottom: 20px;
+    background: #eaf6ff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Section Styles */
+.section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    background: #2980b9;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Navigation Bar Styles */
+nav {
+    background-color: #34495e;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline; /* Keep items inline for horizontal layout */
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Unordered Lists */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #eaf6ff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+/* Links */
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .section {
+        padding: 10px;
+    }
+
+    nav ul li {
+        display: inline; /* Maintain horizontal layout on smaller screens */
+        margin-bottom: 10px; /* Optional: Add space below if needed */
+    }
+}

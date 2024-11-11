@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Lato|Open+Sans&display=swap" rel="stylesheet">
+  <title>Yatzy Game</title>
+  <!-- Correct path to styles.css -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-container">
+      <h1>YATZY</h1>
+      <div class="dice-area">
+          <div class="dice" id="die1">1</div>
+          <div class="dice" id="die2">2</div>
+          <div class="dice" id="die3">3</div>
+          <div class="dice" id="die4">4</div>
+          <div class="dice" id="die5">5</div>
+      </div>
+      <div class="roll-container">
+          <button class="roll-btn" id="rollButton">Roll Dice (3 Rolls Left)</button>
+          <button class="restart-btn" id="restartButton">Restart Game</button>
+      </div>
+      <div class="scorecard">
+          <h2>Scorecard</h2>
+          <table>
+              <tr><th>Category</th><th>Score</th></tr>
+              <tr><td>Ones</td><td id="scoreOnes">0</td></tr>
+              <tr><td>Twos</td><td id="scoreTwos">0</td></tr>
+              <tr><td>Threes</td><td id="scoreThrees">0</td></tr>
+              <tr><td>Fours</td><td id="scoreFours">0</td></tr>
+              <tr><td>Fives</td><td id="scoreFives">0</td></tr>
+              <tr><td>Sixes</td><td id="scoreSixes">0</td></tr>
+              <tr><td>Three of a Kind</td><td id="scoreThreeOfAKind">0</td></tr>
+              <tr><td>Four of a Kind</td><td id="scoreFourOfAKind">0</td></tr>
+              <tr><td>Full House</td><td id="scoreFullHouse">0</td></tr>
+              <tr><td>Small Straight</td><td id="scoreSmallStraight">0</td></tr>
+              <tr><td>Large Straight</td><td id="scoreLargeStraight">0</td></tr>
+              <tr><td>Chance</td><td id="scoreChance">0</td></tr>
+              <tr><td>Yatzy</td><td id="scoreYatzy">0</td></tr>
+              <tr><td>Total</td><td id="totalScore">0</td></tr>
+          </table>
+      </div>
+  </div>
+  <!-- Correct path to script.js -->
+  <script src="script.js"></script>
+</body>
+</html>

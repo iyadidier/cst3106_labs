@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+$(document).ready(function() {
     let rollCount = 3;
     let scores = {
         ones: 0,
@@ -23,32 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
             rollCount = data.rollCount;
             scores = data.scores;
             updateScorecard();
-            document.getElementById('rollButton').innerText = `Roll Dice (${rollCount} Rolls Left)`;
+            $('#rollButton').text(`Roll Dice (${rollCount} Rolls Left)`);
         })
         .catch(error => console.error('Error fetching game state:', error));
 
-    document.getElementById('rollButton').addEventListener('click', rollDice);
-    document.getElementById('restartButton').addEventListener('click', restartGame);
+    $('#rollButton').on('click', rollDice);
+    $('#restartButton').on('click', restartGame);
 
     function rollDice() {
         if (rollCount > 0) {
             rollCount--;
-            document.getElementById('rollButton').innerText = `Roll Dice (${rollCount} Rolls Left)`;
-            const diceValues = [];
+            $('#rollButton').text(`Roll Dice (${rollCount} Rolls Left)`);
+            
+            // Rolling animation
+            $('.dice').each(function(index) {
+                $(this).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+            });
 
-            // Roll the dice and update their values on the page
-            for (let i = 1; i <= 5; i++) {
-                const dieValue = Math.floor(Math.random() * 6) + 1;
-                document.getElementById(`die${i}`).innerText = dieValue;
-                diceValues.push(dieValue);
-            }
+            // Wait for the animation to complete, then display random values
+            setTimeout(function() {
+                const diceValues = [];
+                $('.dice').each(function(index) {
+                    const dieValue = Math.floor(Math.random() * 6) + 1;
+                    $(this).text(dieValue);
+                    diceValues.push(dieValue);
+                });
 
-            // Calculate the scores based on the rolled dice
-            calculateScores(diceValues);
-            updateTotalScore();
+                // Calculate the scores based on the rolled dice
+                calculateScores(diceValues);
+                updateTotalScore();
+                updateGameState();
+            }, 400); // This time matches the duration of the animation
 
-            // Send updated game state to the server
-            updateGameState();
         } else {
             alert("No rolls left! Please restart the game.");
         }
@@ -109,63 +115,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateScorecard() {
-        document.getElementById('scoreOnes').innerText = scores.ones;
-        document.getElementById('scoreTwos').innerText = scores.twos;
-        document.getElementById('scoreThrees').innerText = scores.threes;
-        document.getElementById('scoreFours').innerText = scores.fours;
-        document.getElementById('scoreFives').innerText = scores.fives;
-        document.getElementById('scoreSixes').innerText = scores.sixes;
-        document.getElementById('scoreThreeOfAKind').innerText = scores.threeOfAKind;
-        document.getElementById('scoreFourOfAKind').innerText = scores.fourOfAKind;
-        document.getElementById('scoreFullHouse').innerText = scores.fullHouse;
-        document.getElementById('scoreSmallStraight').innerText = scores.smallStraight;
-        document.getElementById('scoreLargeStraight').innerText = scores.largeStraight;
-        document.getElementById('scoreChance').innerText = scores.chance;
-        document.getElementById('scoreYatzy').innerText = scores.yatzy;
+        $('#scoreOnes').text(scores.ones);
+        $('#scoreTwos').text(scores.twos);
+        $('#scoreThrees').text(scores.threes);
+        $('#scoreFours').text(scores.fours);
+        $('#scoreFives').text(scores.fives);
+        $('#scoreSixes').text(scores.sixes);
+        $('#scoreThreeOfAKind').text(scores.threeOfAKind);
+        $('#scoreFourOfAKind').text(scores.fourOfAKind);
+        $('#scoreFullHouse').text(scores.fullHouse);
+        $('#scoreSmallStraight').text(scores.smallStraight);
+        $('#scoreLargeStraight').text(scores.largeStraight);
+        $('#scoreChance').text(scores.chance);
+        $('#scoreYatzy').text(scores.yatzy);
     }
 
     function updateTotalScore() {
         let total = Object.values(scores).reduce((acc, score) => acc + score, 0);
-        document.getElementById('totalScore').innerText = total;
+        $('#totalScore').text(total);
     }
 
     function updateGameState() {
         fetch('/game', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                rollCount: rollCount,
-                scores: scores
-            })
+            body: JSON.stringify({ rollCount, scores })
         })
         .then(response => response.json())
-        .then(data => {
-            console.log("Game state updated:", data);
-        })
         .catch(error => console.error('Error updating game state:', error));
     }
 
     function restartGame() {
         rollCount = 3;
-        scores = Object.fromEntries(Object.keys(scores).map(key => [key, 0]));
-        document.getElementById('rollButton').innerText = `Roll Dice (${rollCount} Rolls Left)`;
+        scores = {
+            ones: 0,
+            twos: 0,
+            threes: 0,
+            fours: 0,
+            fives: 0,
+            sixes: 0,
+            threeOfAKind: 0,
+            fourOfAKind: 0,
+            fullHouse: 0,
+            smallStraight: 0,
+            largeStraight: 0,
+            chance: 0,
+            yatzy: 0
+        };
         updateScorecard();
-        document.getElementById('totalScore').innerText = '0';
-
-        // Send the reset game state to the server
-        fetch('/game/reset', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ rollCount: rollCount, scores: scores })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Game reset:", data);
-        })
-        .catch(error => console.error('Error resetting game:', error));
+        updateTotalScore();
+        $('#rollButton').text(`Roll Dice (${rollCount} Rolls Left)`);
     }
 });
